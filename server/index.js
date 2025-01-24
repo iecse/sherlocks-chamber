@@ -4,6 +4,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 app.get('/', function (req, res) {
+    console.log("Hello!!")
     res.send('help')
 })
 
