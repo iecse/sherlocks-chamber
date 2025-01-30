@@ -1,27 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
-    :root {
-        --custom-color: #CDF228;
-    }
-}
-    
-
-@theme{
-    --color-greey : #B9B9B9;
-    --color-leem : #CDF228;
-}
 @layer utilities {
-    .bg-custom-color {
-        background-color: var(--custom-color);
-    }
-    .text-custom-color {
-        color: var(--custom-color);
-    }
     .font-orbitron {
         font-family: 'Orbitron', sans-serif;
     }
