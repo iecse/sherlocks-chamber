@@ -1,11 +1,11 @@
 import { Router } from 'express';
-const router = Router();
 import authRouter from "./authRoutes.js"
 import leagueRouter from "./leagueRoutes.js"
 import roundRouter from "./roundRoutes.js"
 import matchRouter from "./matchRoutes.js"
 import teamRouter from "./teamRoutes.js"
 import adminRouter from "./adminRoutes.js"
+const router = Router();
 
 router.use("/auth", authRouter)
 router.use("/league", leagueRouter)

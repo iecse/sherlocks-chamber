@@ -17,14 +17,13 @@ app.use(json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
 
-app.get('/', (req, res) => {
-    res.send('help');
-});
+// app.get('/test', (req, res) => {
+//     res.send('help');
+// });
 
 initSocket(server);
 
 app.use('/api', indexRouter)
-
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

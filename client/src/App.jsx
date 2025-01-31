@@ -3,6 +3,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import useScreenSize from "./hooks/useScreenSize";
+import EncryptionPage from "./pages/EncryptionPage";
+import DecryptionPage from "./pages/DecryptionPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import backgroundImage from "/images/bg.png";
+
 
 function App() {
   const isSmallScreen = useScreenSize();
@@ -16,11 +21,15 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen w-screen">
+    <div className="w-full h-screen bg-cover bg-center flex flex-col items-center justify-start bg-neutral-800"
+      style={{ backgroundImage: `url(${backgroundImage})` }}>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/encrypt" element={<EncryptionPage />} />
+        <Route path="/decrypt" element={<DecryptionPage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </div>
   )
