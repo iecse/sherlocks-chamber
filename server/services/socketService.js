@@ -1,26 +1,35 @@
-import { Server } from 'socket.io';
-import MESSAGES from '../utils/messageUtils';
-import Team from '../models/Team';
-import { checkRoundCompletion, processMatchResult, startRound } from '../utils/gameUtils';
+import { Server } from "socket.io";
+import MESSAGES from "../utils/messageUtils.js";
+import Team from "../models/Team.js";
+import { checkRoundCompletion, processMatchResult, startRound } from "../utils/gameUtils.js";
+
 let io;
 
 export const initSocket = (server) => {
+    if (io) {
+        console.warn("Socket.io is already initialized.");
+        return io;
+    }
+
     io = new Server(server);
 
     io.on(MESSAGES.CONNECTION, (socket) => {
         console.log(`[+] New client connected: ${socket.id}`);
 
-        socket.on(MESSAGES.JOIN_TOURNAMENT, async ({ teamId, tournamentId }) => {
+        socket.removeAllListeners(MESSAGES.JOIN_TOURNAMENT);
+        socket.once(MESSAGES.JOIN_TOURNAMENT, async ({ teamId, tournamentId }) => {
             await Team.findByIdAndUpdate(teamId, { socketId: socket.id });
             socket.join(tournamentId);
         });
 
-        socket.on(MESSAGES.START_ROUND, async ({ tournamentId }) => {
+        socket.removeAllListeners(MESSAGES.START_ROUND);
+        socket.once(MESSAGES.START_ROUND, async ({ tournamentId }) => {
             const matches = await startRound(tournamentId);
             io.to(tournamentId).emit(MESSAGES.ROUND_STARTED, { matches });
         });
 
-        socket.on(MESSAGES.SUBMIT_RESULT, async ({ matchId, winnerId, tournamentId }) => {
+        socket.removeAllListeners(MESSAGES.SUBMIT_RESULT);
+        socket.once(MESSAGES.SUBMIT_RESULT, async ({ matchId, winnerId, tournamentId }) => {
             const match = await processMatchResult(matchId, winnerId);
             const tournament = await checkRoundCompletion(tournamentId);
 
@@ -35,6 +44,7 @@ export const initSocket = (server) => {
 
         socket.on(MESSAGES.DISCONNECT, () => {
             console.log(`[-] Client disconnected: ${socket.id}`);
+            socket.removeAllListeners();
         });
     });
 };
