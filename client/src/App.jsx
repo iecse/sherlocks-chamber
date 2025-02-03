@@ -6,6 +6,7 @@ import useScreenSize from "./hooks/useScreenSize";
 import EncryptionPage from "./pages/EncryptionPage";
 import DecryptionPage from "./pages/DecryptionPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import Tournament from "./pages/Tournament";
 import backgroundImage from "/images/bg.png";
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/encrypt" element={<EncryptionPage />} />
         <Route path="/decrypt" element={<DecryptionPage />} />
+        <Route path="/tournament" element={<Tournament />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </div>

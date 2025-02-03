@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const teamSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
     members: [{ type: String }],
+    password: { type: String, required: true },
     points: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
     currentRound: { type: Number, default: 1 },
